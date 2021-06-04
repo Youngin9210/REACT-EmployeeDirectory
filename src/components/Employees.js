@@ -1,7 +1,9 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import API from '../utils/API';
+import { paginate } from '../utils/paginate';
 import EmployeeTable from './common/EmployeeTable';
+import Pagination from './common/Pagination';
 import Search from './Search';
 
 class Employees extends Component {
@@ -9,6 +11,8 @@ class Employees extends Component {
 		result: [],
 		sortedColumn: { path: 'name.first', order: 'asc' },
 		searchQuery: '',
+		currentPage: 1,
+		pageSize: 10,
 	};
 
 	componentDidMount() {
@@ -21,6 +25,10 @@ class Employees extends Component {
 			.catch((err) => console.log(err.message));
 	};
 
+	handlePageChange = (page) => {
+		this.setState({ currentPage: page });
+	};
+
 	handleSort = (sortedColumn) => {
 		this.setState({ sortedColumn });
 	};
@@ -31,7 +39,8 @@ class Employees extends Component {
 	};
 
 	getTableData = () => {
-		const { result, sortedColumn, searchQuery } = this.state;
+		const { result, sortedColumn, searchQuery, currentPage, pageSize } =
+			this.state;
 
 		let filtered = result.filter((e) => {
 			if (searchQuery === '') return e;
@@ -41,24 +50,39 @@ class Employees extends Component {
 				return e;
 		});
 
+		const employees = paginate(filtered, currentPage, pageSize);
+		console.log(employees);
+
 		const sortedList = _.orderBy(
-			filtered,
+			employees,
 			[sortedColumn.path],
 			[sortedColumn.order]
 		);
-		return { sortedList };
+		return { sortedList, filtered };
 	};
 
 	render() {
-		const { sortedColumn } = this.state;
-		const { sortedList } = this.getTableData();
+		const { sortedColumn, pageSize, currentPage } = this.state;
+		const { sortedList, filtered } = this.getTableData();
 		return (
 			<React.Fragment>
 				<Search onChange={this.handleSearch} />
+				<Pagination
+					employeeCount={filtered.length}
+					pageSize={pageSize}
+					currentPage={currentPage}
+					onPageChange={this.handlePageChange}
+				/>
 				<EmployeeTable
 					onSort={this.handleSort}
 					sortedList={sortedList}
 					sortedColumn={sortedColumn}
+				/>
+				<Pagination
+					employeeCount={filtered.length}
+					pageSize={pageSize}
+					currentPage={currentPage}
+					onPageChange={this.handlePageChange}
 				/>
 			</React.Fragment>
 		);
