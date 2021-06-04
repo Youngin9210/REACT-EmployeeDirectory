@@ -1,12 +1,14 @@
 import _ from 'lodash';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import API from '../utils/API';
 import EmployeeTable from './common/EmployeeTable';
+import Search from './Search';
 
 class Employees extends Component {
 	state = {
 		result: [],
 		sortedColumn: { path: 'name.first', order: 'asc' },
+		searchQuery: '',
 	};
 
 	componentDidMount() {
@@ -23,14 +25,27 @@ class Employees extends Component {
 		this.setState({ sortedColumn });
 	};
 
+	handleSearch = (e) => {
+		this.setState({ searchQuery: e.target.value });
+		// console.log(e.target.value);
+	};
+
 	getTableData = () => {
-		const { result, sortedColumn } = this.state;
+		const { result, sortedColumn, searchQuery } = this.state;
+
+		let filtered = result.filter((e) => {
+			if (searchQuery === '') return e;
+			if (e.name.first.toLowerCase().includes(searchQuery.toLowerCase()))
+				return e;
+			if (e.name.last.toLowerCase().includes(searchQuery.toLowerCase()))
+				return e;
+		});
+
 		const sortedList = _.orderBy(
-			result,
+			filtered,
 			[sortedColumn.path],
 			[sortedColumn.order]
 		);
-		console.log('sortedList', sortedList);
 		return { sortedList };
 	};
 
@@ -38,11 +53,14 @@ class Employees extends Component {
 		const { sortedColumn } = this.state;
 		const { sortedList } = this.getTableData();
 		return (
-			<EmployeeTable
-				onSort={this.handleSort}
-				sortedList={sortedList}
-				sortedColumn={sortedColumn}
-			/>
+			<React.Fragment>
+				<Search onChange={this.handleSearch} />
+				<EmployeeTable
+					onSort={this.handleSort}
+					sortedList={sortedList}
+					sortedColumn={sortedColumn}
+				/>
+			</React.Fragment>
 		);
 	}
 }
