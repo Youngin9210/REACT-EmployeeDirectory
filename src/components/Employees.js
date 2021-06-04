@@ -35,7 +35,10 @@ class Employees extends Component {
 
 	handleSearch = (e) => {
 		this.setState({ searchQuery: e.target.value });
-		// console.log(e.target.value);
+	};
+
+	handleSubmit = (e) => {
+		e.preventDefault();
 	};
 
 	getTableData = () => {
@@ -51,7 +54,6 @@ class Employees extends Component {
 		});
 
 		const employees = paginate(filtered, currentPage, pageSize);
-		console.log(employees);
 
 		const sortedList = _.orderBy(
 			employees,
@@ -66,7 +68,7 @@ class Employees extends Component {
 		const { sortedList, filtered } = this.getTableData();
 		return (
 			<React.Fragment>
-				<Search onChange={this.handleSearch} />
+				<Search onChange={this.handleSearch} onSubmit={this.handleSubmit} />
 				<Pagination
 					employeeCount={filtered.length}
 					pageSize={pageSize}

@@ -3,11 +3,7 @@ import React, { Component } from 'react';
 class TableHeader extends Component {
 	sortColumn = (path) => {
 		const sortedColumn = { ...this.props.sortedColumn };
-		// console.log('sortedColumn', sortedColumn);
-		// console.log('sortedColumn.path', sortedColumn.path);
-		// console.log('path', path);
 		if (sortedColumn.path === path && sortedColumn.path !== undefined) {
-			console.log('true');
 			sortedColumn.order = sortedColumn.order === 'up' ? 'down' : 'up';
 		} else {
 			sortedColumn.path = path;
@@ -19,8 +15,6 @@ class TableHeader extends Component {
 
 	renderSortIcon = (column) => {
 		const { sortedColumn } = this.props;
-		// console.log('column.path', column.path);
-		// console.log('sortedColumn.path', sortedColumn.path);
 		if (column.path !== sortedColumn.path) return null;
 		if (sortedColumn.order === 'up') return <i className="fa fa-sort-up"></i>;
 		return <i className="fa fa-sort-down"></i>;
