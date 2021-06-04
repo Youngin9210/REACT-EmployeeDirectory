@@ -1,5 +1,5 @@
 import React from 'react';
-import EmployeeTable from './components/EmployeeTable';
+import Employees from './components/Employees';
 import NavBar from './components/NavBar';
 
 const App = () => {
@@ -7,7 +7,7 @@ const App = () => {
 		<React.Fragment>
 			<NavBar />
 			<main className="container">
-				<EmployeeTable />
+				<Employees />
 			</main>
 		</React.Fragment>
 	);
