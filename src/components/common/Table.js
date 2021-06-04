@@ -4,7 +4,7 @@ import TableHeader from './TableHeader';
 
 const Table = ({ columns, onSort, sortedColumn, sortedList }) => {
 	return (
-		<table className="table">
+		<table className="table table-responsive">
 			<TableHeader
 				columns={columns}
 				onSort={onSort}
