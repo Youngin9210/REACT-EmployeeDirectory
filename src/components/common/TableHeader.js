@@ -30,7 +30,7 @@ class TableHeader extends Component {
 		const { columns } = this.props;
 		return (
 			<thead>
-				<tr>
+				<tr className="tableHeader">
 					<th className="text-center">Image</th>
 					{columns.map((column) => (
 						<th
