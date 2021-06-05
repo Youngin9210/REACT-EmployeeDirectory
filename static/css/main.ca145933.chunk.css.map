@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA,aACC,kBACD,CAEA,WACC,cACD,CAEA,aACC,kBAAmB,CACnB,UACD","file":"main.ca145933.chunk.css","sourcesContent":[".employeeNav {\n\tbackground: #253d5b;\n}\n\n.clickable {\n\tcursor: pointer;\n}\n\n.tableHeader {\n\tbackground: #1098f7;\n\tcolor: white;\n}\n"]}
