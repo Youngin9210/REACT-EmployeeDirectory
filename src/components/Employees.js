@@ -75,6 +75,10 @@ class Employees extends Component {
 					currentPage={currentPage}
 					onPageChange={this.handlePageChange}
 				/>
+				<p className="text-center">
+					**Sort columns in ascending or descending order by clicking first
+					name, last name, email, location(by city), or cell.**
+				</p>
 				<EmployeeTable
 					onSort={this.handleSort}
 					sortedList={sortedList}
