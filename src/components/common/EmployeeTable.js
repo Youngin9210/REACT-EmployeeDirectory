@@ -6,7 +6,7 @@ class EmployeeTable extends Component {
 		{ path: 'name.first', label: 'First Name' },
 		{ path: 'name.last', label: 'Last Name' },
 		{ path: 'email', label: 'Email' },
-		{ path: 'location', label: 'Location' },
+		{ path: 'location.city', label: 'Location' },
 		{ path: 'cell', label: 'Cell' },
 	];
 	render() {
