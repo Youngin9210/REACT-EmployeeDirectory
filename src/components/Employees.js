@@ -45,12 +45,17 @@ class Employees extends Component {
 		const { result, sortedColumn, searchQuery, currentPage, pageSize } =
 			this.state;
 
-		let filtered = result.filter((e) => {
+		const orderedResult = _.orderBy(result, [sortedColumn.path], ['asc']);
+
+		let filtered = orderedResult.filter((e) => {
 			if (searchQuery === '') return e;
 			if (e.name.first.toLowerCase().includes(searchQuery.toLowerCase()))
 				return e;
 			if (e.name.last.toLowerCase().includes(searchQuery.toLowerCase()))
 				return e;
+			else {
+				return null;
+			}
 		});
 
 		const employees = paginate(filtered, currentPage, pageSize);
