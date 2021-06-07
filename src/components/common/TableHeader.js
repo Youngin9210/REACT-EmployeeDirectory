@@ -21,16 +21,19 @@ class TableHeader extends Component {
 	};
 
 	render() {
-		const { columns } = this.props;
+		const { columns, getTableData } = this.props;
 		return (
 			<thead>
 				<tr className="tableHeader">
 					<th className="text-center">Image</th>
 					{columns.map((column) => (
 						<th
-							className="clickable text-center"
+							className="clickable text-center w-auto"
 							key={column.label}
-							onClick={() => this.sortColumn(column.path)}
+							onClick={() => {
+								this.sortColumn(column.path);
+								getTableData();
+							}}
 						>
 							{column.label} {this.renderSortIcon(column)}
 						</th>
