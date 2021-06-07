@@ -45,16 +45,26 @@ class Employees extends Component {
 		const { result, sortedColumn, searchQuery, currentPage, pageSize } =
 			this.state;
 
-		const orderedResult = _.orderBy(result, [sortedColumn.path], ['asc']);
+		const orderedResult = _.orderBy(
+			result,
+			[sortedColumn.path],
+			[sortedColumn.order]
+		);
 
 		let filtered = orderedResult.filter((e) => {
-			if (searchQuery === '') return e;
-			if (e.name.first.toLowerCase().includes(searchQuery.toLowerCase()))
-				return e;
-			if (e.name.last.toLowerCase().includes(searchQuery.toLowerCase()))
-				return e;
-			else {
-				return null;
+			switch (e) {
+				case searchQuery === '':
+					return e;
+				case e.name.first.toLowerCase().includes(searchQuery.toLowerCase()):
+					return e;
+				case e.name.last.toLowerCase().includes(searchQuery.toLowerCase()):
+					return e;
+				case e.location.city.toLowerCase().includes(searchQuery.toLowerCase()):
+					return e;
+				case e.location.state.toLowerCase().includes(searchQuery.toLowerCase()):
+					return e;
+				default:
+					return e;
 			}
 		});
 
@@ -88,6 +98,7 @@ class Employees extends Component {
 					onSort={this.handleSort}
 					sortedList={sortedList}
 					sortedColumn={sortedColumn}
+					getTableData={this.getTableData}
 				/>
 				<Pagination
 					employeeCount={filtered.length}
