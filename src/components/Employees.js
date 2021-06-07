@@ -52,19 +52,18 @@ class Employees extends Component {
 		);
 
 		let filtered = orderedResult.filter((e) => {
-			switch (e) {
-				case searchQuery === '':
-					return e;
-				case e.name.first.toLowerCase().includes(searchQuery.toLowerCase()):
-					return e;
-				case e.name.last.toLowerCase().includes(searchQuery.toLowerCase()):
-					return e;
-				case e.location.city.toLowerCase().includes(searchQuery.toLowerCase()):
-					return e;
-				case e.location.state.toLowerCase().includes(searchQuery.toLowerCase()):
-					return e;
-				default:
-					return e;
+			if (searchQuery === '') return e;
+			if (e.name.first.toLowerCase().includes(searchQuery.toLowerCase()))
+				return e;
+			if (e.name.last.toLowerCase().includes(searchQuery.toLowerCase()))
+				return e;
+			if (e.location.city.toLowerCase().includes(searchQuery.toLowerCase()))
+				return e;
+			if (e.location.state.toLowerCase().includes(searchQuery.toLowerCase()))
+				return e;
+			if (e.cell.toLowerCase().includes(searchQuery.toLowerCase())) return e;
+			else {
+				return null;
 			}
 		});
 
@@ -84,15 +83,9 @@ class Employees extends Component {
 		return (
 			<React.Fragment>
 				<Search onChange={this.handleSearch} onSubmit={this.handleSubmit} />
-				<Pagination
-					employeeCount={filtered.length}
-					pageSize={pageSize}
-					currentPage={currentPage}
-					onPageChange={this.handlePageChange}
-				/>
 				<p className="text-center">
-					**Sort columns in ascending or descending order by clicking first
-					name, last name, email, location(by city), or cell.**
+					** Sort columns in ascending or descending order by clicking name,
+					email, location(by city), or cell. **
 				</p>
 				<EmployeeTable
 					onSort={this.handleSort}
