@@ -4,15 +4,17 @@ import TableHeader from './TableHeader';
 
 const Table = ({ columns, onSort, sortedColumn, sortedList, getTableData }) => {
 	return (
-		<table className="table table-responsive">
-			<TableHeader
-				columns={columns}
-				onSort={onSort}
-				sortedColumn={sortedColumn}
-				getTableData={getTableData}
-			/>
-			<TableBody sortedList={sortedList} />
-		</table>
+		<div className="table-responsive">
+			<table className="table">
+				<TableHeader
+					columns={columns}
+					onSort={onSort}
+					sortedColumn={sortedColumn}
+					getTableData={getTableData}
+				/>
+				<TableBody sortedList={sortedList} />
+			</table>
+		</div>
 	);
 };
 
