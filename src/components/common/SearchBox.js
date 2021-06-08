@@ -1,6 +1,7 @@
 import React from 'react';
 
 const SearchBox = ({ onChange, onSubmit }) => {
+	// returning search input form
 	return (
 		<form
 			action=""
@@ -11,7 +12,7 @@ const SearchBox = ({ onChange, onSubmit }) => {
 			<input
 				className="form-control me-2"
 				type="search"
-				placeholder="Search by first or last name"
+				placeholder="Search..."
 				onChange={onChange}
 			/>
 		</form>
